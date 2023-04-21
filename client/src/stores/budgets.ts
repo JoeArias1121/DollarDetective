@@ -32,12 +32,11 @@ export function getLatestBudget(budgets: Budget[]): Budget {
     return latest
 }
 
-export function last24Hours(budget: Budget, now: Time): Budget {
-    var last24: Budget;
+export function last24Hours(budget: Budget, now: Time): Category[] {
     var catArray: Category[] = budget.spending;
     var entryArray: Entry[];
-    var tempCatArray: Category[];
-    var tempEntryArray: Entry[];
+    var tempCatArray: Category[] = [];
+    var tempEntryArray: Entry[] = [];
     for (var i = 0; i < catArray.length; i++){
         entryArray = catArray[i].entries;
 
@@ -53,10 +52,5 @@ export function last24Hours(budget: Budget, now: Time): Budget {
         tempCatArray[tempCatArray.length].entries = tempEntryArray;
         tempCatArray[tempCatArray.length].name = catArray[i].name;
     }
-
-    last24.spending = tempCatArray;
-    last24.start = time24hoursAgo(now);
-    last24.initialized = now;
-    last24.lastChanged = now;
-    return last24;
+    return tempCatArray;
 }
