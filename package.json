@@ -1,23 +1,32 @@
 {
-    "name": "dollar-detective",
-    "version": "1.0.0",
-    "description": "",
-    "author": "",
-    "license": "ISC",
-    "scripts": {
-      "build": "npm i && npm i -ws && npm run build -ws",
-      "dev": "nodemon --watch server server/index.js",
-      "start": "node server/index.js && npm run dev -ws"
-    },
-    "workspaces": [
-      "client"
-    ],
-    "dependencies": {
-      "mongodb": "^4.12.1",
-      "dotenv": "^16.0.3",
-      "express": "^4.18.1"
-    },
-    "devDependencies": {
-      "nodemon": "^2.0.20"
-    }
-  }
+  "name": "dollar-detective",
+  "version": "1.0.0",
+  "description": "Software Engineering Project Spring 2023",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "npm i && npm i -ws && npm run build -ws",
+    "dev": "nodemon --watch server server/index.js",
+    "start": "node server/index.js && npm run dev -ws"
+  },
+  "workspaces": [
+    "client"
+  ],
+  "dependencies": {
+    "mongodb": "^4.12.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeArias1121/DollarDetective.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JoeArias1121/DollarDetective/issues"
+  },
+  "homepage": "https://github.com/JoeArias1121/DollarDetective#readme"
+}
