@@ -42,7 +42,7 @@ import { getServerTime } from '@/stores/time';
           
           getServerTime().then(time=> {
                 setUser(user, Number(time));
-                router.push("/budget")
+                router.push("/")
             })
         } else {
           invalidSignIn.value = true
@@ -53,7 +53,7 @@ import { getServerTime } from '@/stores/time';
 </script>
 
 <template>
-  <main>
+  <main class="container">
     <div class="box fades-in">
 
       <div class="columns has-text-centered has-text-primary">
@@ -94,3 +94,12 @@ import { getServerTime } from '@/stores/time';
     </div>
   </main>
 </template>
+
+<style scoped> 
+  .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

@@ -52,7 +52,10 @@ $family-sans-serif: "Nunito", sans-serif;
 #app {
     background: linear-gradient(20deg, $info 15%, $primary 60%); 
     max-width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
     //background: linear-gradient(105deg, $info 0%, $primary 40%, $info 80%);
 }
 

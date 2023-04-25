@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import session from './stores/session'
-
 import NavBar from './components/NavBar.vue';
+import router from './router';
+
+if (!session.user) {
+  router.push('/signIn')
+}
 </script>
 
 <template>
   <div class="block bg">
-    <div class="container mx-3 flex">
+    <div class="container mx-3 flex" v-if="session.user">
       <NavBar/>
     </div>  
         
