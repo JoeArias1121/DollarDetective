@@ -1,14 +1,19 @@
+<script setup lang="ts">
+import  router  from '../router'
+</script>
+
+
 <template>
     <div class="my-3 px-0">
         <nav class="level px-0 has-text-black">
-            <div class="hoverable px-5  is-size-5">
+            <div class="hoverable px-5  is-size-5" @click="router.push('/')">
                 <i class="fa-solid fa-magnifying-glass-dollar has-text-black"></i>
                 Dollar Detective
             </div>
             <div class="box">
                 <nav class="level px-0 has-text-primary">
 
-                <div class="hoverable right-border px-5">
+                <div class="hoverable right-border px-5" @click="router.push('/budget')">
                     <i class="fa-solid fa-table-list has-text-black"></i>
                     Budget
                 </div>
