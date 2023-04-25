@@ -32,7 +32,10 @@ import  router  from '../router'
                     <i class="fa-solid fa-user-tie has-text-black"></i>
                     User
                 </div>
-
+                    <div class="hoverable left-border px-5">
+                        <i class="fa-solid fa-right-from-bracket has-text-black"></i>
+                        Log Out
+                    </div>
                 </nav>
             </div>
         </nav>
