@@ -33,3 +33,25 @@ export function status (budget: Budget): String {
     return " "
 }
 
+export function totalSum (budget: Budget): number {// returns total sum
+
+    var sum = 0;
+
+    for ( var i=0;i<budget.spending.length;i++) {
+        sum += sumCat(budget.spending[i]);
+    }
+
+    return sum;
+}
+
+export function sumCat (cat: Category): number {// returns sum of a category
+
+    var sum = 0;
+
+    for (var i=0;i<cat.entries.length;i++) {
+        sum += cat.entries[i].value;
+    }
+
+    return sum;
+}
+
