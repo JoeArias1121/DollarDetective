@@ -1,6 +1,5 @@
 import session, {api, setUser} from './session';
 import type { Budget } from './budgets';
-import { getServerTime } from './time';
 
 export function addUser(username: string, password: string) {
     return api<boolean>(`users/${username}/${password}`, {}, 'PATCH')
@@ -16,6 +15,9 @@ export function signIn(username: string, password: string) {
     })
 }
 
+export function updateUser(user: User) {
+    return api<User>(`users/${user.username}`, {user}, `POST`)
+}
 
 export interface User {
     username: string

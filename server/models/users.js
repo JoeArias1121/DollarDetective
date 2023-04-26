@@ -33,8 +33,18 @@ async function addUser(username, password) {
     return result;
 }
 
+async function updateUser(user) {
+    const db = await collection();
+    return await db.findOneAndReplace(
+        {username: user.username},
+        {"username": user.username, "password": user.password, "budgets": user.budgets},
+        {returnNewDocument: true, returnDocument: "after"}
+    )
+}
+
 module.exports = {
     collection
     ,getUser
     ,addUser
+    ,updateUser
 }
