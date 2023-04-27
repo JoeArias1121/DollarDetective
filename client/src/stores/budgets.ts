@@ -2,16 +2,12 @@ export interface Budget {
     date: number
     weekNo: number
     limit: number
-    spending: Category[]
-}
-
-export interface Category {
-    description: string
-    entries: Entry[]
+    spending: Entry[]
 }
 
 export interface Entry {
     value: number
+    category: string
     description: string
     date: number
     weekly: boolean
@@ -33,7 +29,8 @@ export function status (budget: Budget): String {
     return " "
 }
 
-export function totalSum (budget: Budget): number {// returns total sum
+// commented of use of Category interface (no longer exists)
+/* export function totalSum (budget: Budget): number {// returns total sum
 
     var sum = 0;
 
@@ -53,5 +50,5 @@ export function sumCat (cat: Category): number {// returns sum of a category
     }
 
     return sum;
-}
+} */
 
