@@ -29,7 +29,7 @@ export function status (budget: Budget): String {
     return " "
 }
 
-// commented of use of Category interface (no longer exists)
+// commented use of Category interface (no longer exists)
 /* export function totalSum (budget: Budget): number {// returns total sum
 
     var sum = 0;
