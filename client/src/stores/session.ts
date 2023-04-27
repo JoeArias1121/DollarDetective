@@ -16,20 +16,17 @@ const session = reactive({
     user: null as User | null
 });
 
-export function setUser(user: User, time: number) {
+export function setUser(user: User) {
 
   user.budgets.sort( (b0, b1) => {
     return b1.weekNo - b0.weekNo;
   })  
 
-  user.activeTime = time
-
   user.hasCurrentWeek = false
-  const currentWeekNo = getWeekNo(new Date(time)) 
+  const currentWeekNo = getWeekNo(new Date(user.activeTime)) 
 
   if (user.budgets.length > 0 && currentWeekNo === user.budgets[0].weekNo) 
     user.hasCurrentWeek = true;
-  
 
   session.user = user
 }

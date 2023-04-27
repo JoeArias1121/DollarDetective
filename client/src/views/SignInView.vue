@@ -41,7 +41,7 @@ import { getServerTime } from '@/stores/time';
           password.value = ""
           
           getServerTime().then(time=> {
-                setUser(user, Number(time));
+                setUser(user);
                 router.push("/")
             })
         } else {

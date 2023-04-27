@@ -20,11 +20,11 @@ async function addUser(username, password) {
         if (user) {
             //dont insert  
         } else {
-
             db.insertOne({
                 "username": username
                 ,"password": password
                 ,"budgets": []
+                ,"activeTime": new Date().valueOf
             })
             result = true;
         }
@@ -37,7 +37,12 @@ async function updateUser(user) {
     const db = await collection();
     return await db.findOneAndReplace(
         {username: user.username},
-        {"username": user.username, "password": user.password, "budgets": user.budgets},
+        {
+            "username": user.username
+            ,"password": user.password
+            ,"budgets": user.budgets
+            ,"activeTime": new Date().valueOf
+        },
         {returnNewDocument: true, returnDocument: "after"}
     )
 }
