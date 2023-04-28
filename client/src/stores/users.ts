@@ -23,7 +23,6 @@ export interface User {
     username: string
     password: string
     budgets: Budget[]
-    lastActiveTime: number
     activeTime: number
     hasCurrentWeek: boolean
 }
