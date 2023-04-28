@@ -1,29 +1,39 @@
 <script setup lang="ts">
+    import { addBudget, addEntry } from '@/stores/budgets';
     import session from '@/stores/session';
+    import { getWeekNo } from '@/stores/time';
     import { updateUser } from '@/stores/users';
 
-    function noChange() {
+    function newBudget() {
         if (session.user) {
+            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date()), 1000)
+
             updateUser(session.user).then(result => {
+                session.user = result
                 console.log(result)
             })
         }
     }
 
-    function passChange() {
-        if (session.user) {
-            session.user.password = "pass"
-            updateUser(session.user).then(result => {
-                console.log(result)
-            })
-        }
+    function newEntry() {
+
     }
 </script>
 
 <template>
     <main>
         <div class="box fades-in">
-            <div class="button is-bg" @click="passChange()">password change to 'pass'</div>
+            <div class="box">
+                <div class="button is-bg" @click="newBudget()">budget</div>
+                <div class="button is-bg" @click="newEntry()">entry</div>
+            </div>
+
+            <div class="box">
+                user.budgets:
+                <div class="box">
+                    {{ session.user?.budgets }}
+                </div>
+            </div>
         </div>
     </main>
 </template>
