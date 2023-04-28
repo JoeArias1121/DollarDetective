@@ -24,7 +24,7 @@ async function addUser(username, password) {
                 "username": username
                 ,"password": password
                 ,"budgets": []
-                ,"activeTime": new Date().valueOf
+                ,"activeTime": new Date().valueOf()
             })
             result = true;
         }
@@ -41,7 +41,7 @@ async function updateUser(user) {
             "username": user.username
             ,"password": user.password
             ,"budgets": user.budgets
-            ,"activeTime": new Date().valueOf
+            ,"activeTime": new Date().valueOf()
         },
         {returnNewDocument: true, returnDocument: "after"}
     )
