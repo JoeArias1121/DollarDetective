@@ -1,3 +1,5 @@
+import type { User } from "./users"
+
 export interface Budget {
     date: number
     weekNo: number
@@ -27,6 +29,25 @@ export function status (budget: Budget): String {
         return "N/A";
     }
     return " "
+}
+
+export function addEntry(budget: Budget, value: number, category: string, description: string, date: number, weekly: boolean) {
+    budget.spending.push({
+        value: value,
+        category: category,
+        description: description,
+        date: date,
+        weekly: weekly
+    })
+}
+
+export function addBudget(user: User, date: number, weekNo: number, limit: number) {
+    user.budgets.push({
+        date: date,
+        weekNo: weekNo,
+        limit: limit,
+        spending: new Array<Entry>()
+    })
 }
 
 // commented use of Category interface (no longer exists)
