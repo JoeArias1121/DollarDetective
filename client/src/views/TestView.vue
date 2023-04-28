@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { addBudget, addEntry } from '@/stores/budgets';
-    import session from '@/stores/session';
+    import session, { setUser } from '@/stores/session';
     import { getWeekNo } from '@/stores/time';
     import { updateUser } from '@/stores/users';
 
@@ -9,14 +9,18 @@
             addBudget(session.user, new Date().valueOf(), getWeekNo(new Date()), 1000)
 
             updateUser(session.user).then(result => {
-                session.user = result
-                console.log(result)
+                setUser(result)
             })
         }
     }
 
     function newEntry() {
-
+        if (session.user) {
+            addEntry(session.user.budgets[0], 100, "food", "donut", new Date().valueOf(), false)
+            updateUser(session.user).then(result => {
+                setUser(result)
+            })
+        }
     }
 </script>
 
