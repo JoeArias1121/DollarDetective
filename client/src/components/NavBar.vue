@@ -12,31 +12,31 @@ import  router  from '../router'
             </div>
             <div class="box">
                 <nav class="level px-0 has-text-primary">
-                    <div class="hoverable right-border px-5" @click="router.push('/budget')">
+                    <div class="hoverable right-border pl-0 pr-4" @click="router.push('/budget')">
                         <i class="fa-solid fa-table-list has-text-black"></i>
                         Budget
                     </div>
 
-                    <div class="hoverable right-border px-5">
+                    <div class="hoverable right-border px-4">
                         <i class="fa-solid fa-calendar-days has-text-black"></i>
                         Calendar
                     </div>
 
-                    <div class="hoverable right-border px-5">
+                    <div class="hoverable right-border px-4">
                         <i class="fa-solid fa-chart-line has-text-black"></i>
                         Statistics
                     </div>
 
-                    <div class="hoverable right-border px-5" @click="router.push('/test')">
+                    <div class="hoverable right-border px-4" @click="router.push('/test')">
                         <i class="fa-solid fa-frog has-text-black"></i>
                         Test
                     </div>
 
-                    <div class="hoverable right-border px-5">
+                    <div class="hoverable right-border px-4">
                         <i class="fa-solid fa-user-tie has-text-black"></i>
                         User
                     </div>
-                    <div class="hoverable px-5">
+                    <div class="hoverable pl-4 pr-0">
                         <i class="fa-solid fa-right-from-bracket has-text-black"></i>
                         Log Out
                     </div>
