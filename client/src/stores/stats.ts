@@ -65,7 +65,7 @@ function getCategoriesTotal(date?: number) : CategoryStats[] {
                 });
 
                 if(updated == false) {
-                    statCategories.push({ categoryType: category.categoryType, totalSpending: total });
+                    statCategories.push({ categoryType: category.categoryType.toLowerCase(), totalSpending: total });
                 }
             });
         }

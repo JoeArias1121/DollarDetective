@@ -1,5 +1,6 @@
 import type { User } from "./users"
 import session from './session';
+import { ref } from "vue";
 
 export interface Budget {
     date: number;
@@ -65,13 +66,36 @@ export function addEntry(budget: Budget, value: number, passedCategory: string, 
 }
 
 export function addBudget(user: User, date: number, weekNo: number, limit: number) {
+    let newCategoryArray: Category[] = [];
+            defaultCategories.value.forEach(c => {
+                newCategoryArray.push({ categoryType: c, entries: [] });
+            });
     user.budgets.push({
         date: date,
         weekNo: weekNo,
         spendingLimit: limit,
-        categories: [] as Category[]
-    })
+        categories: newCategoryArray,
+        })
 }
+
+export function addDefaultCategory(category: string) {
+    defaultCategories.value.push(category);
+}
+
+export function deleteDefaultCategory(category: string) {
+    const index = defaultCategories.value.findIndex(x => x == category);
+    defaultCategories.value.splice(index, 1);
+}
+
+const defaultCategories = ref<string[]>([
+    'Dining',
+    'Entertainment',
+    'Travel',
+    'Health',
+    'Finance',
+    'Groceries',
+    'Transportaion'
+])
 
 // commented use of Category interface (no longer exists)
 /* export function totalSum (budget: Budget): number {// returns total sum
