@@ -1,15 +1,20 @@
 import type { User } from "./users"
+import session from './session';
 
 export interface Budget {
-    date: number
-    weekNo: number
-    limit: number
-    spending: Entry[]
+    date: number;
+    weekNo: number;
+    spendingLimit: number;
+    categories: Category[];
 }
 
-export interface Entry {
-    value: number
-    category: string
+interface Category {
+    categoryType: string;
+    entries: Entry[];
+}
+
+interface Entry {
+    spent: number
     description: string
     date: number
     weekly: boolean
@@ -31,22 +36,40 @@ export function status (budget: Budget): String {
     return " "
 }
 
-export function addEntry(budget: Budget, value: number, category: string, description: string, date: number, weekly: boolean) {
-    budget.spending.push({
-        value: value,
-        category: category,
-        description: description,
-        date: date,
-        weekly: weekly
-    })
+export function addEntry(budget: Budget, value: number, passedCategory: string, description: string, date: number, weekly: boolean) {
+    let insertedEntry: Boolean = false;
+    budget.categories.forEach(category => {
+        if(category.categoryType.toLowerCase() == passedCategory.toLowerCase()) {
+            category.entries.push({
+                spent: value,
+                description: description,
+                date: date,
+                weekly: weekly
+            });
+            insertedEntry = true;
+        }
+    });
+    
+    if(insertedEntry == false) {
+        
+        budget.categories.push({ 
+            categoryType: passedCategory, 
+            entries: [{
+                spent: value,
+                description: description,
+                date: date,
+                weekly: weekly
+            }]
+        });
+    }  
 }
 
 export function addBudget(user: User, date: number, weekNo: number, limit: number) {
     user.budgets.push({
         date: date,
         weekNo: weekNo,
-        limit: limit,
-        spending: new Array<Entry>()
+        spendingLimit: limit,
+        categories: [] as Category[]
     })
 }
 

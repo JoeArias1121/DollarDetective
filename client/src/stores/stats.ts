@@ -1,7 +1,7 @@
 import session from '../stores/session';
 
 interface CategoryStats {
-    category: string,
+    categoryType: string,
     totalSpending: number,
     percentage?: number
 }
@@ -14,7 +14,7 @@ export function getCategoriesAndPercentage(date?: number) : CategoryStats[] {
     let categories = getCategoriesTotal(date ?? undefined);
     
     categories.forEach(category => {
-        category.percentage = (category.totalSpending/totalSpending) * 100;
+        category.percentage = +((category.totalSpending/totalSpending) * 100).toFixed(2);
     });
     return categories;
 }
@@ -23,12 +23,18 @@ export function getCategoriesAndPercentage(date?: number) : CategoryStats[] {
 function totalSpent(date?: number) : number {
     let totalSpending = 0;
     session.user?.budgets.forEach(budget => {
-        budget.spending.forEach(entry => {
 
-            if(entry.date >= (date ?? 0)) {
-                totalSpending += entry.value;
-            }
-        });
+        if(budget.date >= (date ?? 0)) {
+            budget.categories.forEach(category => {
+
+                category.entries.forEach(entry => {
+                    if(entry.date >= (date ?? 0)) {
+                        totalSpending += entry.spent;
+                    }
+                });
+            });
+        }
+
     });
     return totalSpending;
 }
@@ -36,26 +42,35 @@ function totalSpent(date?: number) : number {
 
 
 function getCategoriesTotal(date?: number) : CategoryStats[] {
-    let categories: CategoryStats[] = [];
+    let statCategories: CategoryStats[] = [];
     session.user?.budgets.forEach(budget => {
-        budget.spending.forEach(entry => {
-            if(entry.date >= (date ?? 0)) {
 
-                categories.forEach(category => {
-                    if(category.category == entry.category.toLowerCase()) {
-                        category.totalSpending += entry.value;
+        if(budget.date >= (date ?? 0)) {
+            budget.categories.forEach(category => {
+
+               let total = 0;     
+                category.entries.forEach(entry => {
+                    if(entry.date >= (date ?? 0)) {
+                        total += entry.spent;
                     }
-                    else {
+                })
 
+                let updated: Boolean = false;
+                
+                statCategories.forEach(statCategory => {
+                    if(statCategory.categoryType == category.categoryType.toLowerCase()){
+                        statCategory.totalSpending += total;
+                        updated = true;
                     }
                 });
-                if (categories.length == 0) {
-                    categories.push({ category: entry.category.toLowerCase(), totalSpending: entry.value });
+
+                if(updated == false) {
+                    statCategories.push({ categoryType: category.categoryType, totalSpending: total });
                 }
-            }
-        });
+            });
+        }
     });
-    return categories;
+    return statCategories;
 }
 
 
