@@ -8,6 +8,25 @@ function logout() {
 }
 </script>
 
+<<<<<<< Updated upstream
+=======
+<style>
+img{
+   
+   height:90px;
+   width: 60px;
+   background-color:white;
+    
+}
+
+
+ button {
+    padding: 10px;
+    font-size: 2em;
+    
+  }
+</style>
+>>>>>>> Stashed changes
 
 <template>
    <div class="my-3 px-0">
@@ -49,6 +68,34 @@ function logout() {
                     </div>
                 </nav>
             </div>
+<<<<<<< Updated upstream
         </nav>
     </div>
+=======
+          </div>
+        </div>
+
+         <div class="navbar-end">
+
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-white">
+                <strong>Log Out</strong>
+              </a>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+   
+    </nav>
+
+
+
+ 
+
+
+
+   
+>>>>>>> Stashed changes
 </template>
