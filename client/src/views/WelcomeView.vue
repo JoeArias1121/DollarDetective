@@ -25,7 +25,7 @@ if(session.user) {
         <h1 class="title">Your Recent Activity</h1>
         <div class="columns">
             <div class="column">
-                column 1
+                
             </div>
             <div class="column is-three-fifths">
                 <div class="box">
@@ -36,7 +36,7 @@ if(session.user) {
                 </div>
             </div>
             <div class="column">
-                column 3
+                
             </div>
         </div>
     </div>
