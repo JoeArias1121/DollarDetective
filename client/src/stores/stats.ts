@@ -6,6 +6,11 @@ interface CategoryStats {
     percentage?: number
 }
 
+interface BudgetStats {
+    totalSpent: number,
+    percentage: number,
+}
+
 // the following function returns an array of type CatagoryStats with percentage field
 // being set based on the date that is inputed
 
@@ -58,19 +63,30 @@ function getCategoriesTotal(date?: number) : CategoryStats[] {
                 let updated: Boolean = false;
                 
                 statCategories.forEach(statCategory => {
-                    if(statCategory.categoryType == category.categoryType.toLowerCase()){
+                    if(statCategory.categoryType.toLowerCase() == category.categoryType.toLowerCase()){
                         statCategory.totalSpending += total;
                         updated = true;
                     }
                 });
 
                 if(updated == false) {
-                    statCategories.push({ categoryType: category.categoryType.toLowerCase(), totalSpending: total });
+                    statCategories.push({ categoryType: category.categoryType, totalSpending: total });
                 }
             });
         }
     });
     return statCategories;
+}
+
+export function underOverBudget() : BudgetStats {
+    let totalSpent = 0;
+    session.user?.budgets[0].categories.forEach(category => {
+        category.entries.forEach(entry => {
+            totalSpent += entry.spent;
+        })
+    })
+    let percentage = +(totalSpent/(session.user?.budgets[0].spendingLimit ?? 0) * 100).toFixed(2);
+    return { totalSpent: totalSpent, percentage: percentage }
 }
 
 

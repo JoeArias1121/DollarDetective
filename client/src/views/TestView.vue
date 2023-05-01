@@ -16,7 +16,7 @@
 
     function newEntry() {
         if (session.user) {
-            addEntry(session.user.budgets[0], 100, "pets", "donut", new Date().valueOf(), false)
+            addEntry(session.user.budgets[0], 100, "Drugs", "donut", new Date().valueOf(), false)
             updateUser(session.user).then(result => {
                 setUser(result)
             })

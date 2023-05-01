@@ -9,22 +9,19 @@ import BudgetModal from '@/components/BudgetModal.vue';
 
 const isOpen = ref(false);
 if(session.user) {
-    if( getWeekNo(new Date()) == session.user.budgets[session.user.budgets.length-1].weekNo ) {
-        console.log('need to create budget');
-        console.log(getWeekNo(new Date()));
-        console.log(session.user.budgets[0].weekNo);
+    if( getWeekNo(new Date()) > session.user.budgets[0].weekNo ) {
         isOpen.value = true;
     }
-
 }
 
 
 </script>
 
 <template>
-    <BudgetModal v-model:is-open="isOpen"></BudgetModal>
+    
+    <BudgetModal class="fades-in" v-model:is-open="isOpen"></BudgetModal>
 
-    <div class="container">
+    <div class="container fades-in">
         <h1 class="title">Your Recent Activity</h1>
         <div class="columns">
             <div class="column">
@@ -43,6 +40,7 @@ if(session.user) {
             </div>
         </div>
     </div>
+
 </template>
 
 <style scoped>

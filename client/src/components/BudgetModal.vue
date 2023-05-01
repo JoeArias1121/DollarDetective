@@ -16,7 +16,7 @@ function newBudget(spendingLimit: number) {
         }
     }
 
-const spendingLimit = ref(session.user!.budgets[0].spendingLimit ?? 0);
+const spendingLimit = ref(session.user!.budgets[0].spendingLimit ?? 100);
 
 const props = defineProps<{ 
     isOpen: boolean,
