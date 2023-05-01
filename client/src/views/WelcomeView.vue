@@ -24,7 +24,13 @@ if(session.user) {
     <BudgetModal class="fades-in" v-model:is-open="isOpen"></BudgetModal>
 
     <div class="container fades-in">
-        <h1 class="title">Your Recent Activity</h1>
+
+        <h2><strong>Welcome to </strong></h2>
+ 
+            <h2><strong> <i class="fa-solid fa-magnifying-glass-dollar has-text-black"></i>Dollar Detective</strong></h2>
+
+        <h1 class="title"> Your Recent Activity</h1>
+
         <div class="columns">
             <div class="column">
                 
@@ -47,9 +53,14 @@ if(session.user) {
 
 </template>
 
+
 <style scoped>
     h1 {
         text-align: center;
         font-size: 3em;
+    }
+    h2{
+        text-align: center;
+        font-size: 6em;
     }
 </style>
