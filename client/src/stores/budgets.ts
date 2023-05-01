@@ -22,7 +22,23 @@ interface Entry {
 }
 
 //function to compute percentage of spending return json object
+export function computePercentage(spendingLimit: number, category: Category): string {
+    const percentage = (sumCat(category) / spendingLimit) * 100;
+
+    const myJSON = '{"categoryType":"'+category.categoryType+'", "percentageOfSpending":'+percentage+'}';
+    
+
+    return myJSON;
+
+}
 //json object returns each category and sum
+export function categoryAndSum(categories: Category[]): string {
+    let json = '{';
+    for (let i = 0; i < categories.length; i++) {
+        json += '"categoryType":"'+categories[i].categoryType+'", "sumOfEntries":'+sumCat(categories[i]);
+    }
+    return json+'}';
+}
 /**
  * [
  *  {category: string, sum: number}
@@ -109,12 +125,12 @@ const defaultCategories = ref<string[]>([
 ])
 
 // commented use of Category interface (no longer exists)
-/* export function totalSum (budget: Budget): number {// returns total sum
+export function totalSum (budget: Budget): number {// returns total sum
 
     var sum = 0;
 
-    for ( var i=0;i<budget.spending.length;i++) {
-        sum += sumCat(budget.spending[i]);
+    for ( var i=0;i<budget.categories.length;i++) {
+        sum += sumCat(budget.categories[i]);
     }
 
     return sum;
@@ -125,9 +141,9 @@ export function sumCat (cat: Category): number {// returns sum of a category
     var sum = 0;
 
     for (var i=0;i<cat.entries.length;i++) {
-        sum += cat.entries[i].value;
+        sum += cat.entries[i].spent;
     }
 
     return sum;
-} */
+} 
 
