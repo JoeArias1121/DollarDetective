@@ -15,6 +15,15 @@ export interface Entry {
     weekly: boolean
 }
 
+//function to compute percentage of spending return json object
+//json object returns each category and sum
+/**
+ * [
+ *  {category: string, sum: number}
+ * ]
+ */
+
+
 export function status (budget: Budget): String {
     var income: number = budget.date;// can limit be a number instead of array
     var spending = 100;
