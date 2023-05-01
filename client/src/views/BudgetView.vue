@@ -24,8 +24,9 @@
 
 <template>
   <main>
-    <div class="box fades-in">
-        Week {{ currentBudget?.weekNo }}
+    <div class="container fades-in">
+    <div class="box">
+        Week {{ currentBudget?.weekNo }} 
 
 <!--         <div v-for="(entry, i) in currentBudget?.spending" class="box">
         </div> -->
@@ -39,5 +40,14 @@
             </div>
         </div>
     </div>
+  </div>
   </main>
 </template>
+
+<style scoped>
+    .container {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+</style>
+
