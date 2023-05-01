@@ -9,7 +9,7 @@ import BudgetModal from '@/components/BudgetModal.vue';
 
 const isOpen = ref(false);
 if(session.user) {
-    if( getWeekNo(new Date()) > session.user.budgets[0].weekNo || session.user.budgets == undefined || session.user.budgets.length == 0) {
+    if( session.user.budgets.length == 0 || getWeekNo(new Date()) > (session.user.budgets[0].weekNo)) {
         isOpen.value = true;
     }
 }

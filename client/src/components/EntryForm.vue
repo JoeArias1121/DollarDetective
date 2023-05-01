@@ -6,6 +6,9 @@ import { updateUser } from '@/stores/users';
 
     function getCategories() :string[] {
         let categoryArray : string[] = [];
+        if(session.user?.budgets.length == 0) {
+            return [] as string[];
+        }
 
         //current week
         session.user?.budgets[0].categories.forEach(category => {
@@ -22,18 +25,20 @@ import { updateUser } from '@/stores/users';
         });
 
         //the week prior
-        session.user?.budgets[1].categories.forEach(category => {
+        if(session.user?.budgets[1] != undefined) {
+            session.user?.budgets[1].categories.forEach(category => {
 
-            let isAdded : boolean = false;
-            categoryArray.forEach(c => {
-                if(category.categoryType.toLowerCase() == c.toLowerCase()) {
-                    isAdded = true;
+                let isAdded : boolean = false;
+                categoryArray.forEach(c => {
+                    if(category.categoryType.toLowerCase() == c.toLowerCase()) {
+                        isAdded = true;
+                    }
+                });
+                if(!isAdded) {
+                    categoryArray.push(category.categoryType)
                 }
             });
-            if(!isAdded) {
-                categoryArray.push(category.categoryType)
-            }
-        });
+        }
         return categoryArray;
     }
 
@@ -46,15 +51,14 @@ import { updateUser } from '@/stores/users';
         }
     }
 
-const categoryList = getCategories();
+
+const categoryList = ref(getCategories());
 
 const category = ref('');
 const spent = ref(0);
 const description = ref('');
-console.log(category);
 
 
-console.log(categoryList);
 </script>
 
 <template>
@@ -63,7 +67,7 @@ console.log(categoryList);
     <label class="label">Choose Category</label>
         <div class="control">
             <div class="select">
-                <select v-model="category">
+                <select v-model="category" @click="categoryList = getCategories()">
                     <option disabled selected value="">Category</option>
                     <option v-for="category in categoryList" v-bind:value="category">{{ category }}</option>
                 </select>
@@ -83,7 +87,7 @@ console.log(categoryList);
             <textarea class="textarea" name="description" placeholder="Enter description of purchase here" v-model="description"></textarea>
         </div>
     </div>
-    <button class="button is-primary" @click="newEntry(spent, category, description)">Submit</button>
+    <button class="button is-primary" @click="newEntry(spent, category, description); spent=0; category=''; description=''">Submit</button>
 
 </template>
 

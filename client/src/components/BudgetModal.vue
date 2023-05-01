@@ -16,7 +16,9 @@ function newBudget(spendingLimit: number) {
         }
     }
 
-const spendingLimit = ref(session.user!.budgets[0].spendingLimit ?? 100);
+    
+
+const spendingLimit = ref((session.user?.budgets.length ? session.user.budgets[0].spendingLimit : 100));
 
 const props = defineProps<{ 
     isOpen: boolean,
@@ -41,12 +43,18 @@ const emit = defineEmits<{
             <section class="modal-card-body">
                 <label class="label">Set this weeks spending limit</label>
                 <div class="control">
-                    <input type="number" class="input" v-model="spendingLimit" v-bind:placeholder="session.user!.budgets[0].spendingLimit.toString()">
+                    <div v-if="(session.user?.budgets.length ?? 0) > 0">
+                        <input type="number" class="input" v-model="spendingLimit" v-bind:placeholder="session.user!.budgets[0].spendingLimit.toString()">
+                    </div>
+                    <div v-else>
+                        <input type="number" class="input" v-model="spendingLimit" placeholder="0">
+
+                    </div>
                 </div>
             </section>
             <footer class="modal-card-foot">
                 <div class="control field">
-                    <button class="button is-primary" @click="newBudget(spendingLimit); emit('update:isOpen', false)">Save</button>
+                    <button class="button is-primary" @click="newBudget(spendingLimit); emit('update:isOpen', false);">Save</button>
                 </div>
             </footer>
             

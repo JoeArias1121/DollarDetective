@@ -80,6 +80,8 @@ function getCategoriesTotal(date=0) : CategoryStats[] {
 }
 
 export function underOverBudget() : BudgetStats {
+    if(session.user?.budgets.length == 0)
+        return { totalSpent: 0, attemptedSavings: 0 , percentage: 0 }
     let totalSpent = 0;
     session.user?.budgets[0].categories.forEach(category => {
         category.entries.forEach(entry => {
