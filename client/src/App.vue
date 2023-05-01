@@ -4,9 +4,7 @@ import session from './stores/session'
 import NavBar from './components/NavBar.vue';
 import router from './router';
 
-if (!session.user) {
-  router.push('/signIn')
-}
+
 </script>
 
 <template>
@@ -17,7 +15,7 @@ if (!session.user) {
         
     
     <div>
-        <RouterView />
+        <RouterView/>
     </div>
 
     <div :class="{'is-invisible': session.loading==0}" class="container has-text-centered has-text-white">

@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import  router  from '../router'
+import session from '@/stores/session';
+
+function logout() {
+    session.user = null;
+    router.push('/signIn')
+}
 </script>
 
 
@@ -36,7 +42,8 @@ import  router  from '../router'
                         <i class="fa-solid fa-user-tie has-text-black"></i>
                         User
                     </div>
-                    <div class="hoverable pl-4 pr-0">
+                    <div class="hoverable pl-4 pr-0" @click="logout()">
+                        
                         <i class="fa-solid fa-right-from-bracket has-text-black"></i>
                         Log Out
                     </div>

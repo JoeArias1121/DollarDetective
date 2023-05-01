@@ -5,13 +5,15 @@ import UnderOver from '@/components/Under-Over.vue';
 import { getWeekNo } from '../stores/time';
 import session from '../stores/session';
 import BudgetModal from '@/components/BudgetModal.vue';
-
+import router from '@/router';
 
 const isOpen = ref(false);
 if(session.user) {
     if( session.user.budgets.length == 0 || getWeekNo(new Date()) > (session.user.budgets[0].weekNo)) {
         isOpen.value = true;
     }
+}else{
+    router.push("/signIn")
 }
 
 
@@ -33,6 +35,8 @@ if(session.user) {
                 </div>
                 <div class="box">
                     <EntryForm />
+
+
                 </div>
             </div>
             <div class="column">
