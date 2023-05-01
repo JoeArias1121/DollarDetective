@@ -74,19 +74,14 @@ export function addEntry(budget: Budget, value: number, passedCategory: string, 
     }  
 }
 
-export function addBudget(user: User, date: number, weekNo: number, limit: number) {
-
-    let newCategoryArray: Category[] = [];
-            defaultCategories.value.forEach(c => {
-                newCategoryArray.push({ categoryType: c, entries: [] });
-            });
-            
+export function addBudget(user: User, date: number, weekNo: number, limit: number) {  
     user.budgets.push({
         date: date,
         weekNo: weekNo,
         spendingLimit: limit,
-        categories: newCategoryArray,
-        })
+        categories:  defaultCategories.value.map(c => ({ categoryType: c, entries: [] as Entry[]})),
+    });
+        
 }
 
 export function addDefaultCategory(category: string) {

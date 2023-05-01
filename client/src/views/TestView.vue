@@ -6,7 +6,7 @@
 
     function newBudget() {
         if (session.user) {
-            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date()), 1000)
+            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date()), 1234567)
 
             updateUser(session.user).then(result => {
                 setUser(result)
@@ -16,7 +16,7 @@
 
     function newEntry() {
         if (session.user) {
-            addEntry(session.user.budgets[0], 100, "Drugs", "donut", new Date().valueOf(), false)
+            addEntry(session.user.budgets[0], 10000000000000, "Drugs", "donut", 10, false)
             updateUser(session.user).then(result => {
                 setUser(result)
             })
