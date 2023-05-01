@@ -22,7 +22,7 @@ import  router  from '../router'
                         Calendar
                     </div>
 
-                    <div class="hoverable right-border px-4">
+                    <div class="hoverable right-border px-4" @click="router.push('/stats')">
                         <i class="fa-solid fa-chart-line has-text-black"></i>
                         Statistics
                     </div>

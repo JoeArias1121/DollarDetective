@@ -1,15 +1,21 @@
 import type { User } from "./users"
+import session from './session';
+import { ref } from "vue";
 
 export interface Budget {
-    date: number
-    weekNo: number
-    limit: number
-    spending: Entry[]
+    date: number;
+    weekNo: number;
+    spendingLimit: number;
+    categories: Category[];
 }
 
-export interface Entry {
-    value: number
-    category: string
+interface Category {
+    categoryType: string;
+    entries: Entry[];
+}
+
+interface Entry {
+    spent: number
     description: string
     date: number
     weekly: boolean
@@ -40,24 +46,67 @@ export function status (budget: Budget): String {
     return " "
 }
 
-export function addEntry(budget: Budget, value: number, category: string, description: string, date: number, weekly: boolean) {
-    budget.spending.push({
-        value: value,
-        category: category,
-        description: description,
-        date: date,
-        weekly: weekly
-    })
+export function addEntry(budget: Budget, value: number, passedCategory: string, description: string, date: number, weekly: boolean) {
+    let insertedEntry: Boolean = false;
+    budget.categories.forEach(category => {
+        if(category.categoryType.toLowerCase() == passedCategory.toLowerCase()) {
+            category.entries.push({
+                spent: value,
+                description: description,
+                date: date,
+                weekly: weekly
+            });
+            insertedEntry = true;
+        }
+    });
+    
+    if(insertedEntry == false) {
+        
+        budget.categories.push({ 
+            categoryType: passedCategory, 
+            entries: [{
+                spent: value,
+                description: description,
+                date: date,
+                weekly: weekly
+            }]
+        });
+    }  
 }
 
 export function addBudget(user: User, date: number, weekNo: number, limit: number) {
+
+    let newCategoryArray: Category[] = [];
+            defaultCategories.value.forEach(c => {
+                newCategoryArray.push({ categoryType: c, entries: [] });
+            });
+            
     user.budgets.push({
         date: date,
         weekNo: weekNo,
-        limit: limit,
-        spending: new Array<Entry>()
-    })
+        spendingLimit: limit,
+        categories: newCategoryArray,
+        })
 }
+
+export function addDefaultCategory(category: string) {
+    defaultCategories.value.push(category);
+}
+
+export function deleteDefaultCategory(category: string) {
+    const index = defaultCategories.value.findIndex(x => x == category);
+    defaultCategories.value.splice(index, 1);
+}
+
+const defaultCategories = ref<string[]>([
+    'Dining',
+    'Entertainment',
+    'Travel',
+    'Health',
+    'Finance',
+    'Groceries',
+    'Transportaion'
+])
 
 // commented use of Category interface (no longer exists)
 /* export function totalSum (budget: Budget): number {// returns total sum

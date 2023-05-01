@@ -16,7 +16,7 @@ if (!session.user) {
     </div>  
         
     
-    <div class="container center-contents flex">
+    <div>
         <RouterView />
     </div>
 

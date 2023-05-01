@@ -1,24 +1,51 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import EntryForm from '@/components/EntryForm.vue';
+import UnderOver from '@/components/Under-Over.vue';
+import { getWeekNo } from '../stores/time';
+import session from '../stores/session';
+import BudgetModal from '@/components/BudgetModal.vue';
+
+
+const isOpen = ref(false);
+if(session.user) {
+    if( getWeekNo(new Date()) > session.user.budgets[0].weekNo ) {
+        isOpen.value = true;
+    }
+}
+
+
 </script>
 
 <template>
-  <main>
-    <body>
-      <!-- Spacing between heading and navbar-->
-        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
-          <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
+    
+    <BudgetModal class="fades-in" v-model:is-open="isOpen"></BudgetModal>
 
-    <h1 style="font-size: 8vw; text-align: center;"> Welcome to </h1>
-  
-  <h1 style="font-size: 8vw; text-align:center;"><i class="fa-solid fa-magnifying-glass-dollar has-text-black"></i><strong> Dollar Detective</strong></h1>
+    <div class="container fades-in">
+        <h1 class="title">Your Recent Activity</h1>
+        <div class="columns">
+            <div class="column">
+                column 1
+            </div>
+            <div class="column is-three-fifths">
+                <div class="box">
+                    <UnderOver />
+                </div>
+                <div class="box">
+                    <EntryForm />
+                </div>
+            </div>
+            <div class="column">
+                column 3
+            </div>
+        </div>
+    </div>
 
-  <!-- Spacing between heading and subheading-->
-  <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
-   <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
-
-  <h2 style="font-size: 4vw; text-align: center; color: gray;"><strong>Status: Good</strong> </h2>
-    <h2 style="color:black; font-size: 3vw; text-align: center;"><strong>Expense of the day: 04/27/23</strong></h2> 
-
-     </body>
-  </main>
 </template>
+
+<style scoped>
+    h1 {
+        text-align: center;
+        font-size: 3em;
+    }
+</style>
