@@ -8,15 +8,16 @@ interface CategoryStats {
 
 interface BudgetStats {
     totalSpent: number,
-    percentage: number,
+    percentage?: number,
+    attemptedSavings?: number,
 }
 
 // the following function returns an array of type CatagoryStats with percentage field
 // being set based on the date that is inputed
 
 export function getCategoriesAndPercentage(date?: number) : CategoryStats[] {
-    let totalSpending = totalSpent(date ?? undefined);
-    let categories = getCategoriesTotal(date ?? undefined);
+    let totalSpending = totalSpent(date);
+    let categories = getCategoriesTotal(date);
     
     categories.forEach(category => {
         category.percentage = +((category.totalSpending/totalSpending) * 100).toFixed(2);
@@ -25,15 +26,15 @@ export function getCategoriesAndPercentage(date?: number) : CategoryStats[] {
 }
 
 
-function totalSpent(date?: number) : number {
+function totalSpent(date=0) : number {
     let totalSpending = 0;
     session.user?.budgets.forEach(budget => {
 
-        if(budget.date >= (date ?? 0)) {
+        if(budget.date >= (date)) {
             budget.categories.forEach(category => {
 
                 category.entries.forEach(entry => {
-                    if(entry.date >= (date ?? 0)) {
+                    if(entry.date >= (date)) {
                         totalSpending += entry.spent;
                     }
                 });
@@ -46,16 +47,16 @@ function totalSpent(date?: number) : number {
 
 
 
-function getCategoriesTotal(date?: number) : CategoryStats[] {
+function getCategoriesTotal(date=0) : CategoryStats[] {
     let statCategories: CategoryStats[] = [];
     session.user?.budgets.forEach(budget => {
 
-        if(budget.date >= (date ?? 0)) {
+        if(budget.date >= (date)) {
             budget.categories.forEach(category => {
 
                let total = 0;     
                 category.entries.forEach(entry => {
-                    if(entry.date >= (date ?? 0)) {
+                    if(entry.date >= (date)) {
                         total += entry.spent;
                     }
                 })
@@ -89,6 +90,25 @@ export function underOverBudget() : BudgetStats {
     return { totalSpent: totalSpent, percentage: percentage }
 }
 
+export function underOverAll(date=0) : BudgetStats {
+    let totalAttempedSaveings = 0;
+    let totalSpent = 0;
+    session.user?.budgets.forEach(budget => {
+        if(budget.date >= date) {
+            totalAttempedSaveings += budget.spendingLimit;
+
+            budget.categories.forEach(category => {
+
+                category.entries.forEach(entry => {
+                    if(entry.date >= (date)) {
+                        totalSpent += entry.spent;
+                    }
+                });
+            });
+        }
+    });
+    return { totalSpent: totalSpent, attemptedSavings: totalAttempedSaveings }
+}
 
 
 
