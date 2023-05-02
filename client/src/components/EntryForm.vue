@@ -78,7 +78,7 @@ const description = ref('');
         <label class="label">Enter Total Price</label>
         <div class="control">
             <span class="dollar-sign">$</span>
-            <input class="input price-input" type="number" min="0" placeholder="Price" v-model="spent">
+            <input class="input price-input" type="number" min="0" placeholder="0" v-model="spent">
         </div>
     </div>
     <div class="field">

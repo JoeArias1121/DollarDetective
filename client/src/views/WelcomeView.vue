@@ -19,12 +19,33 @@ if(session.user) {
 
 </script>
 
+<style>
+  .div1 {
+  width: 300px;
+  height: 100px;
+  border: 1px solid blue; 
+}
+
+.div2 {
+  width: 300px;
+  height: 100px;
+  padding: 50px;
+  border: 1px solid red;
+}
+</style>
 <template>
+<<<<<<< Updated upstream
     
     <BudgetModal class="fades-in" v-model:is-open="isOpen"></BudgetModal>
 
     <div class="container fades-in">
-        <h1 class="title">Your Recent Activity</h1>
+
+        <h2><strong>Welcome to </strong></h2>
+ 
+            <h2><strong> <i class="fa-solid fa-magnifying-glass-dollar has-text-black"></i>Dollar Detective</strong></h2>
+
+        <h1 class="title"> Your Recent Activity</h1>
+
         <div class="columns">
             <div class="column">
                 
@@ -45,11 +66,29 @@ if(session.user) {
         </div>
     </div>
 
+=======
+  <main>
+    <div1 class="box is-size-1 has-text-centered has-text-weight-bold has-text-dark">
+        <h1 style ="font-size:250%;"> Welcome to </h1>
+  
+   <h1 style = "font-size:250%;"><strong>  <i class="fa-solid fa-magnifying-glass-dollar has-text-black"></i>Dollar Detective</strong></h1>
+    
+    </div1>
+    <div2 class="box is-size-1 has-text-centered has-text-weight-bold has-text-dark">
+      <h2 style="color:gray; "><b>Status: Good </b></h2>
+    </div2>
+  </main>
+>>>>>>> Stashed changes
 </template>
+
 
 <style scoped>
     h1 {
         text-align: center;
         font-size: 3em;
+    }
+    h2{
+        text-align: center;
+        font-size: 6em;
     }
 </style>
