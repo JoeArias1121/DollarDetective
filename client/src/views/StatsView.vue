@@ -3,16 +3,16 @@ import { ref } from 'vue';
 import { getCategoriesAndPercentage, underOverAll } from '@/stores/stats';
 
 const timeFrames = [
-        'week',
-        'two weeks',
-        'month',
-        'year',
-        'all'
+        'Week',
+        'Two Weeks',
+        'Month',
+        'Year',
+        'All'
     ]
 
     
     const date = new Date();
-    const time = ref('all');
+    const time = ref('All');
     const categories = ref(getCategoriesAndPercentage());
     const underOver = ref(underOverAll());
 
@@ -70,9 +70,9 @@ function getTime(){
         
     
     <div class="container">
-        <div class="time-container box">
-            <a href="#" class="times has-text-info" v-for="timeFrame in timeFrames" v-bind:class="{'is-active': time == timeFrame}"
-            @click="time = timeFrame; getTime()">{{ timeFrame }}</a>
+        <div class="time-container box has-text-primary">
+            <div class="times" v-for="timeFrame in timeFrames" v-bind:class="{'border-tab-active': time == timeFrame}"
+            @click="time = timeFrame; getTime()">{{ timeFrame }}</div>
         </div>
         <div class="box under-over">
             <h2 class="title"> Total Spent: {{  underOver.totalSpent }}</h2>
