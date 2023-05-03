@@ -20,7 +20,11 @@ export function getCategoriesAndPercentage(date?: number) : CategoryStats[] {
     let categories = getCategoriesTotal(date);
     
     categories.forEach(category => {
-        category.percentage = +((category.totalSpending/totalSpending) * 100).toFixed(2);
+        if (category.totalSpending == 0) {
+            category.percentage = 0;
+        } else {
+            category.percentage = +((category.totalSpending/totalSpending) * 100).toFixed(2);
+        }
     });
     return categories;
 }
