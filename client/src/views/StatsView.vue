@@ -15,12 +15,6 @@ const timeFrames = [
     const time = ref('All');
     const categories = ref(getCategoriesAndPercentage());
     const underOver = ref(underOverAll());
-
-    console.log(date.valueOf())
-    console.log('hello');
-    console.log(Math.pow(6.048, 8));
-    
-
 function getTime(){
     switch(time.value) {
         case 'week':
@@ -76,7 +70,7 @@ function getTime(){
         </div>
         <div class="box under-over">
             <h2 class="title"> Total Spent: {{  underOver.totalSpent }}</h2>
-            <h2 class="title"> Total Attemped to Save: {{  underOver.attemptedSavings }}</h2>
+            <h2 class="title"> Goal: {{  underOver.attemptedSavings }}</h2>
         </div>
         <div class="box" v-for="category, i in categories">
             <p class="title">{{ category.categoryType }}</p>
