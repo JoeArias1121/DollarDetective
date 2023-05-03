@@ -44,10 +44,3 @@
   </main>
 </template>
 
-<style scoped>
-    .container {
-        margin-left: 15px;
-        margin-right: 15px;
-    }
-</style>
-
