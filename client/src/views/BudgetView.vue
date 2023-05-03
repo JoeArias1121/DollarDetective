@@ -25,22 +25,64 @@
 <template>
   <main>
     <div class="container fades-in">
-    <div class="box">
-        Week {{ currentBudget?.weekNo }} 
+      <div class="box">
+        <strong>Week {{ currentBudget?.weekNo }}</strong>
 
-<!--         <div v-for="(entry, i) in currentBudget?.spending" class="box">
-        </div> -->
+        <div class="category-container">
+          <div class="box category-display" v-for="category, i in currentBudget?.categories">
+            <p class="title">{{ category.categoryType }}</p>
+            
+            <nav class="level" v-for="entry, j in category.entries">
+              <div class="level-left">
+                <div class="level-item">
+                  {{ entry.description }}
+                </div>
+              </div>
 
-        <div class="buttons has-addons is-centered input-group">
-          <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex + 1)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex - 1)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
+              <div class="level-right">
+                <div class="level-item">
+                  {{ entry.spent }}
+                </div>
+              </div>
+            </nav>
+          </div>
         </div>
+
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex + 1)">
+                <i class="fa-solid fa-chevron-left"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="level-right">
+            <div class="level-item">
+              <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex - 1)">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+        </nav>
     </div>
   </div>
   </main>
 </template>
 
+<style scoped> 
+  .category-display {
+      width: 300px;
+      min-height: 150px;
+      margin-right: 8px;
+      margin-bottom: 24px;
+  }
+
+  .category-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
