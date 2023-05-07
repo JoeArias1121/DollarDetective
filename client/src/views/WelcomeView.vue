@@ -9,7 +9,11 @@ import router from '@/router';
 
 const isOpen = ref(false);
 if(session.user) {
-    if( session.user.budgets.length == 0 || getWeekNo(new Date()) > (session.user.budgets[0].weekNo)) {
+    /* if( session.user.budgets.length == 0 || getWeekNo(new Date()) > (session.user.budgets[0].weekNo)) {
+        isOpen.value = true;
+    } */
+
+    if (!session.user.hasCurrentWeek) {
         isOpen.value = true;
     }
 }else{
