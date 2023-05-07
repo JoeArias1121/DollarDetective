@@ -43,8 +43,8 @@ import { updateUser } from '@/stores/users';
     }
 
     function newEntry(spent: number, category: string, description: string) {
-        if (session.user) {
-            addEntry(session.user.budgets[0], spent, category, description, new Date().valueOf(), false)
+        if (session.user && spent >= 0 && category.length > 0 && description.trim().length > 0) {
+            addEntry(session.user.budgets[0], spent, category, description.trim(), new Date().valueOf(), false)
             updateUser(session.user).then(result => {
                 setUser(result)
             })
