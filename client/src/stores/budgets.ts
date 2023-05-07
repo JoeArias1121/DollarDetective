@@ -9,12 +9,12 @@ export interface Budget {
     categories: Category[];
 }
 
-interface Category {
+export interface Category {
     categoryType: string;
     entries: Entry[];
 }
 
-interface Entry {
+export interface Entry {
     spent: number
     description: string
     date: number
