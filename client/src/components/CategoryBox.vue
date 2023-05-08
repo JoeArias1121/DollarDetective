@@ -106,7 +106,7 @@
 
         <div class="level-right">
             <div class="level-item">
-                ${{ entry.spent }}
+                ${{ entry.spent.toFixed(2) }}
             </div>
             <i v-if="props.budgetIndex == 0" class="on-hover fa-solid ml-3 hoverable" :class="{'fa-calendar-plus': !entry.weekly, 'fa-calendar-minus': entry.weekly}" @click="flipWeekly(entry)"></i>
             <i v-if="props.budgetIndex == 0" class="on-hover fa-solid fa-trash ml-3 hoverable" @click="deleteEntry(category, j)"></i>

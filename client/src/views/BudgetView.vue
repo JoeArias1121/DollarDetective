@@ -47,7 +47,7 @@
           
           <div class="level-right">
             <div class="level-item title">
-              ${{ budgetSum(currentBudget?.categories) }}
+              ${{ budgetSum(currentBudget?.categories).toFixed(2) }}
             </div>
           </div> 
         </nav>
