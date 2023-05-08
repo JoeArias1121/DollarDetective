@@ -140,13 +140,12 @@ export function deleteDefaultCategory(category: string) {
 }
 
 const defaultCategories = ref<string[]>([
-    'Dining',
     'Entertainment',
+    'Housing',
     'Travel',
     'Health',
-    'Finance',
     'Groceries',
-    'Transportaion'
+    'Online',
 ])
 
 // commented use of Category interface (no longer exists)
