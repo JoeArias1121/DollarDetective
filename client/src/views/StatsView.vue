@@ -45,6 +45,17 @@
         } )
     }
 
+    function calcPercent(category: Category) {
+        const sum = +categorySum(category)
+        const total = +budgetSum(alltime.value)
+
+        if (typeof(sum) == 'number' && typeof(total) == 'number' && total > 0) {
+            return ((sum/total) * 100).toFixed(2)
+        }
+
+        return 0
+    }
+
     function initialize() {
         alltimeUpdate()
     }
@@ -72,7 +83,7 @@
                     <!-- right side -->
                     <div class="level-left">
                         <div class="level-item title">
-                            {{ ((categorySum(category)/budgetSum(alltime)) * 100).toFixed(2) }}%
+                            {{ calcPercent(category) }}%
                         </div>
                     </div>
                 </nav>
