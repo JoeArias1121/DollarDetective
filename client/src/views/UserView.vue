@@ -32,8 +32,7 @@ import session, { setUser } from '@/stores/session';
         if (session.user) {
             if (d1.value && d2.value && d3.value) {
                 deleteUser(session.user).then(result => {
-                    console.log(result)
-                    if (result) {
+                    if (result.deletedCount == 1) {
                         session.user = null;
                         router.push('/')
                     }

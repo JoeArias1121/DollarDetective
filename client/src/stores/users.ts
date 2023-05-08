@@ -20,7 +20,11 @@ export function updateUser(user: User) {
 }
 
 export function deleteUser(user: User) {
-    return api<User>(`users/${user.username}`, {user}, `DELETE`)
+    return api<Deleted>(`users/${user.username}`, {user}, `DELETE`)
+}
+
+export interface Deleted {
+    deletedCount: number
 }
 
 export interface User {
