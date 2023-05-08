@@ -20,7 +20,7 @@ import { getWeekNo } from '@/stores/time';
 
 function newBudget() {
         if (session.user) {
-            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date(session.user.activeTime)) - 1, goalInput.value)
+            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date(session.user.activeTime)), goalInput.value)
 
             emit('update:isOpen', false)
             updateUser(session.user).then(result => {
