@@ -6,7 +6,6 @@
     import { ref } from 'vue';
 
     const alltime = ref<Category[]>([])
-    const display = ref<Category[]>([])
 
     function alltimeUpdate() {
         if (session.user && session.user.budgets) {

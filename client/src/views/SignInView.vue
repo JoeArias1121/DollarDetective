@@ -88,7 +88,7 @@ import { getServerTime } from '@/stores/time';
         <div v-if="invalidSignIn && !joinUsTab" class="has-text-danger has-text-centered"> Sign in failed! </div>
 
         <div class="buttons is-grouped">
-          <div class="button is-bg is-fullwidth has-text-white" @click="action()">Continue</div>
+          <div class="button is-fullwidth is-primary is-inverted is-rounded" @click="action()">Continue</div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@
   import type { Budget, Category } from '@/stores/budgets';
   import { categorySum, budgetSum } from '@/stores/stats';
   import CategoryBox from '@/components/CategoryBox.vue';
+  import EntryModal from '@/components/EntryModal.vue';
 
   const currentBudgetIndex = ref<number>(0);
   const currentBudget = ref<Budget>();
@@ -13,6 +14,15 @@
     if (session.user && i >= 0 && i < session.user.budgets.length) {
       currentBudgetIndex.value = i
       currentBudget.value = session.user.budgets[i]
+      session.user.budgets[i].categories.sort((c0, c1) => {
+        return categorySum(c1) - categorySum(c0)
+      })
+
+      session.user.budgets[i].categories.forEach(category => {
+        category.entries.sort((e0, e1) => {
+          return e1.date - e0.date
+        })
+      })
     }
   }
 
@@ -42,7 +52,7 @@
         </nav>
 
         <div class="box " v-for="category, i in currentBudget?.categories">
-          <CategoryBox :inputCategory="category"></CategoryBox>
+          <CategoryBox :inputCategory="category" :budgetIndex="currentBudgetIndex"></CategoryBox>
         </div>
 
       <nav class="level">

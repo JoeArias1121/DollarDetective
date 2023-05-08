@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import EntryForm from '@/components/EntryForm.vue';
 import UnderOver from '@/components/Under-Over.vue';
 import { getWeekNo } from '../stores/time';
 import session from '../stores/session';
 import BudgetModal from '@/components/BudgetModal.vue';
+import EntryModal from '@/components/EntryModal.vue';
 import router from '@/router';
 
-const isOpen = ref(false);
+const isNewBudgetOpen = ref(false);
+const isNewEntryOpen = ref(false);
+
 if(session.user) {
     /* if( session.user.budgets.length == 0 || getWeekNo(new Date()) > (session.user.budgets[0].weekNo)) {
         isOpen.value = true;
     } */
 
     if (!session.user.hasCurrentWeek) {
-        isOpen.value = true;
+        isNewBudgetOpen.value = true;
     }
 }else{
     router.push("/signIn")
@@ -38,7 +40,8 @@ if(session.user) {
 }
 </style>
 <template>
-    <BudgetModal class="fades-in" v-model:is-open="isOpen"></BudgetModal>
+    <BudgetModal v-model:is-open="isNewBudgetOpen"></BudgetModal>
+    <EntryModal v-model:is-open="isNewEntryOpen"></EntryModal>
 
     <div class="container fades-in">
 
@@ -56,8 +59,9 @@ if(session.user) {
                 <div class="box">
                     <UnderOver />
                 </div>
+
                 <div class="box">
-                    <EntryForm />
+                    <div class="button is-inverted is-primary is-rounded" @click="isNewEntryOpen = true">New Entry</div>
                 </div>
             </div>
             <div class="column">

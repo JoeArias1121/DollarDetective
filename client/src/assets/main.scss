@@ -59,15 +59,6 @@ $family-sans-serif: "Nunito", sans-serif;
     //background: linear-gradient(105deg, $info 0%, $primary 40%, $info 80%);
 }
 
-.button.is-bg {
-    background: linear-gradient(20deg, $info 15%, $primary 60%); 
-    width: 250px;
-}
-.button.is-bg:hover {
-    background: linear-gradient(200deg, $info 15%, $primary 60%); 
-    scale: 1.025;
-}
-
 .border-tab-active {
     border-top: 0px;
     border-right: 0px;
