@@ -72,7 +72,7 @@
                     <!-- right side -->
                     <div class="level-left">
                         <div class="level-item title">
-                            {{ ((categorySum(category)/budgetSum(alltime)) * 100).toFixed(2) }}%
+                            {{ typeof(((categorySum(category)/budgetSum(alltime)) * 100).toFixed(2)) == "number" ? ((categorySum(category)/budgetSum(alltime)) * 100).toFixed(2) : 0 }}%
                         </div>
                     </div>
                 </nav>
