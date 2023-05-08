@@ -21,6 +21,17 @@ export function getDayNo(date: Date): number {
     return dayOfYear;
 }
 
+export function dayNoToDate(n: number) {
+    var month = 0
+
+    while (month < 11 && dayCount[month + 1] < n)
+        month++;
+
+    let day = n - dayCount[month]
+    return new Date(2023, month, day)
+}
+
+
 export function isLeapYear(date: Date): boolean {
     var year = date.getFullYear();
     if((year & 3) != 0) return false;

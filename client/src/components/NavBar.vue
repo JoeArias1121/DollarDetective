@@ -23,7 +23,7 @@ function logout() {
                         Budget
                     </div>
 
-                    <div class="hoverable right-border px-4">
+                    <div class="hoverable right-border px-4" @click="router.push('/calendar')">
                         <i class="fa-solid fa-calendar-days has-text-black"></i>
                         Calendar
                     </div>

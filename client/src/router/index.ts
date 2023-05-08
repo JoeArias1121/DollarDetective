@@ -3,6 +3,7 @@ import SignInView from '../views/SignInView.vue'
 import BudgetView from '../views/BudgetView.vue'
 import WelcomeView from '../views/WelcomeView.vue'
 import RefreshBudgetView from '../views/RefreshBudgetView.vue'
+import CalendarView from '../views/CalendarView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/signIn',
       name: 'signIn',
       component: SignInView
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: CalendarView
     },
     {
       path: '/stats',
