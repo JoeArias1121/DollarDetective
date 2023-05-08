@@ -46,7 +46,7 @@ if(session.user) {
  
             <h2><strong> <i class="fa-solid fa-magnifying-glass-dollar has-text-black"></i>Dollar Detective</strong></h2>
 
-        <h1 class="title"> Your Recent Activity</h1>
+        <h1 class="title">Recent Activity</h1>
 
         <div class="columns">
             <div class="column">
@@ -58,8 +58,6 @@ if(session.user) {
                 </div>
                 <div class="box">
                     <EntryForm />
-
-
                 </div>
             </div>
             <div class="column">

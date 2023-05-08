@@ -1,121 +1,84 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { getCategoriesAndPercentage, underOverAll } from '@/stores/stats';
+    import router from '@/router';
+    import type { Budget, Category, Entry } from '@/stores/budgets';
+    import { categorySum, budgetSum } from '@/stores/stats';
+    import session from '@/stores/session';
+    import { ref } from 'vue';
 
-const timeFrames = [
-        'Week',
-        'Two Weeks',
-        'Month',
-        'Year',
-        'All'
-    ]
+    const alltime = ref<Category[]>([])
+    const display = ref<Category[]>([])
 
-    
-    const date = new Date();
-    const time = ref('All');
-    const categories = ref(getCategoriesAndPercentage());
-    const underOver = ref(underOverAll());
-function getTime(){
-    switch(time.value) {
-        case 'week':
-            categories.value = getCategoriesAndPercentage(date.valueOf() - 604800000);
-            underOver.value = underOverAll(date.valueOf() - 604800000);
-            console.log('1');
-            break;
+    function alltimeUpdate() {
+        if (session.user && session.user.budgets) {
+            session.user.budgets.forEach(budget => {
+                budget.categories.forEach(category => {
+                    let foundCategory = -1
 
-        case 'two weeks':
-            categories.value = getCategoriesAndPercentage(date.valueOf() - 1209600000);
-            underOver.value = underOverAll(date.valueOf() - 1209600000); 
-            console.log('2');
-            break;
-        
-        case 'month':
-            categories.value = getCategoriesAndPercentage(date.valueOf() - 2629746000);
-            underOver.value = underOverAll(date.valueOf() - 2629746000);
-            console.log('3');
-            break;
+                    for (let i = 0; i < alltime.value.length && foundCategory == -1; i++) {
+                        if (alltime.value[i].categoryType == category.categoryType) {
+                            foundCategory = i
+                        }
+                    }
 
-        case 'year':
-            categories.value = getCategoriesAndPercentage(date.valueOf() - 31556952000);
-            underOver.value = underOverAll(date.valueOf() - 31556952000);
-            console.log('4');
-            break;
-        
-        case 'all':
-            categories.value = getCategoriesAndPercentage();
-            underOver.value = underOverAll();
-            console.log('5');
-            break;
+                    if (foundCategory == -1) {
+                        foundCategory = alltime.value.push({
+                            categoryType: category.categoryType,
+                            entries: []
+                        })
+
+                        foundCategory--;
+                    }
+
+                    category.entries.forEach(entry => {
+                        alltime.value[foundCategory].entries.push({
+                            description: entry.description,
+                            spent: entry.spent,
+                            date: entry.date,
+                            weekly: entry.weekly                             
+                        })
+                    })
+                })
+            });
+        }
+
+        alltime.value.sort( (c0, c1) => {
+            return categorySum(c1) - categorySum(c0)
+        } )
     }
-}
 
+    function initialize() {
+        alltimeUpdate()
+    }
 
-
-    
-
-
-    
-    // week=6.048^8 twoWeeks=1.21^9 month=2.628^9 year=3.154^10 alltime
+    if (session.user) {
+        initialize()
+    } else {
+        router.push('/')
+    }
 </script>
 
 <template>
-    <h1 class="title">Your Statistics</h1>
+    <div class="container fades-in">
+        <h1 class="title" style="text-align:center">All-Time Statistics</h1>
+            <div class="box" v-for="category in alltime">
 
-        
-    
-    <div class="container">
-        <div class="time-container box has-text-primary">
-            <div class="times" v-for="timeFrame in timeFrames" v-bind:class="{'border-tab-active': time == timeFrame}"
-            @click="time = timeFrame; getTime()">{{ timeFrame }}</div>
+                <nav class="level">
+                    <!-- left side -->
+                    <div class="level-left">
+                        <div class="level-item title">
+                            {{ category.categoryType }}
+                        </div>
+                    </div>
+
+                    <!-- right side -->
+                    <div class="level-left">
+                        <div class="level-item title">
+                            {{ ((categorySum(category)/budgetSum(alltime)) * 100).toFixed(2) }}%
+                        </div>
+                    </div>
+                </nav>
+                <progress class="progress is-primary" v-bind:value="categorySum(category)" v-bind:max="budgetSum(alltime)"></progress>
+            </div>
         </div>
-        <div class="box under-over">
-            <h2 class="title"> Total Spent: {{  underOver.totalSpent }}</h2>
-            <h2 class="title"> Goal: {{  underOver.attemptedSavings }}</h2>
-        </div>
-        <div class="box" v-for="category, i in categories">
-            <p class="title">{{ category.categoryType }}</p>
-            <p>Percentage: {{ category.percentage }}</p>
-            <p>Total Spent: {{ category.totalSpending }}</p>
-        </div>
-    </div>
+
 </template>
-
-
-
-<style scoped>
-    .container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
-    .box {
-        width: 300px;
-        min-height: 150px;
-        margin-right: 8px;
-        margin-bottom: 24px;
-    }
-    .under-over {
-        width: 100%;
-    }
-    h1 {    
-        text-align: center;
-        font-size: 3em;
-    }
-    .time-container {
-        display: flex;
-        flex-flow: row wrap;
-        width: 95vw;
-        min-height: 50px;
-        justify-content: space-between;
-    }
-    .times {
-        font-size: 1.25em;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .is-active {
-        text-decoration: underline;
-    }
-</style>

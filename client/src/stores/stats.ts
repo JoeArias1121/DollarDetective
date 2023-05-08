@@ -1,5 +1,5 @@
 import session from '../stores/session';
-
+import type { Category } from './budgets';
 interface CategoryStats {
     categoryType: string,
     totalSpending: number,
@@ -116,6 +116,24 @@ export function underOverAll(date=0) : BudgetStats {
     return { totalSpent: totalSpent, attemptedSavings: totalAttempedSaveings }
 }
 
+export function categorySum(category: Category): number {
+    let sum = 0;
 
+    category.entries.forEach(entry => {
+        sum = sum + entry.spent
+    })
 
+    return sum
+}
 
+export function budgetSum(categories?: Category[]): number {
+    let sum = 0;
+
+    if (categories) {
+        categories.forEach(category => {
+            sum = sum + categorySum(category)
+        })
+    }
+
+    return sum
+}
