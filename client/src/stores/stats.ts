@@ -10,6 +10,7 @@ interface BudgetStats {
     totalSpent: number,
     percentage?: number,
     attemptedSavings?: number,
+    amountLeft?: number,
 }
 
 // the following function returns an array of type CatagoryStats with percentage field
@@ -87,13 +88,15 @@ export function underOverBudget() : BudgetStats {
     if(session.user?.budgets.length == 0)
         return { totalSpent: 0, attemptedSavings: 0 , percentage: 0 }
     let totalSpent = 0;
+    let amountLeft = session.user?.budgets[0].spendingLimit ?? 0;
     session.user?.budgets[0].categories.forEach(category => {
         category.entries.forEach(entry => {
             totalSpent += entry.spent;
         })
     })
+    amountLeft -= totalSpent;
     let percentage = +(totalSpent/(session.user?.budgets[0].spendingLimit ?? 0) * 100).toFixed(2);
-    return { totalSpent: totalSpent, percentage: percentage }
+    return { totalSpent: totalSpent, percentage: percentage, amountLeft: amountLeft }
 }
 
 export function underOverAll(date=0) : BudgetStats {
