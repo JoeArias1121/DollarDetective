@@ -73,8 +73,8 @@
     <nav class="level my-0 cat">
         <div class="level-left">
             <div class="level-item">
-                <i class="fa-solid hoverable" :class="{'fa-chevron-down': !expanded, 'fa-chevron-up': expanded}" @click="expanded = !expanded"></i>
-                <i class="fa-solid fa-plus mx-3 hoverable" @click="isNewEntryOpen = true"></i>
+                <i class="fa-solid mr-3 hoverable" :class="{'fa-chevron-down': !expanded, 'fa-chevron-up': expanded}" @click="expanded = !expanded"></i>
+                <i v-if="props.budgetIndex == 0" class="fa-solid fa-plus mr-3 hoverable" @click="isNewEntryOpen = true"></i>
                 <strong>{{ category.categoryType }}</strong>
             </div>
         </div>   
@@ -83,7 +83,7 @@
             <div class="level-item">
             <strong>${{ categorySum(category) }}</strong>
             </div>
-            <i class="on-hover fa-solid fa-trash ml-3 hoverable" @click="deleteCategory()"></i>
+            <i v-if="props.budgetIndex == 0" class="on-hover fa-solid fa-trash ml-3 hoverable" @click="deleteCategory()"></i>
        </div> 
     </nav>
 
@@ -107,8 +107,8 @@
             <div class="level-item">
                 ${{ entry.spent }}
             </div>
-            <i class="on-hover fa-solid ml-3 hoverable" :class="{'fa-calendar-plus': !entry.weekly, 'fa-calendar-minus': entry.weekly}" @click="flipWeekly(entry)"></i>
-            <i class="on-hover fa-solid fa-trash ml-3 hoverable" @click="deleteEntry(category, j)"></i>
+            <i v-if="props.budgetIndex == 0" class="on-hover fa-solid ml-3 hoverable" :class="{'fa-calendar-plus': !entry.weekly, 'fa-calendar-minus': entry.weekly}" @click="flipWeekly(entry)"></i>
+            <i v-if="props.budgetIndex == 0" class="on-hover fa-solid fa-trash ml-3 hoverable" @click="deleteEntry(category, j)"></i>
         </div>
     </nav>
 </template>
