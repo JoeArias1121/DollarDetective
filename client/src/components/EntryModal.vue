@@ -88,7 +88,6 @@
             let time = dateInput.value
 
             if (!dayInputBad.value && !monthInputBad.value) {
-                console.log("both good")
                 time.setMonth(monthInput.value - 1)
                 time.setDate(dayInput.value)
             }
