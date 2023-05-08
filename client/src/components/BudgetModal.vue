@@ -5,11 +5,24 @@ import session, { setUser } from '../stores/session';
 import { addBudget } from '@/stores/budgets';
 import { getWeekNo } from '@/stores/time';
 
+    const goalInput = ref()
+    const goalInputBad = ref(false)
 
-function newBudget(spendingLimit: number) {
+    function checkGoalInput() {
+        const num = +goalInput.value
+
+        if (typeof(num) == "number" && num >= 0) {
+            goalInputBad.value = false
+        } else {
+            goalInputBad.value = true
+        }
+    }
+
+function newBudget() {
         if (session.user) {
-            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date()), spendingLimit)
+            addBudget(session.user, new Date().valueOf(), getWeekNo(new Date(session.user.activeTime)), goalInput.value)
 
+            emit('update:isOpen', false)
             updateUser(session.user).then(result => {
                 setUser(result)
             })
@@ -33,33 +46,28 @@ const emit = defineEmits<{
 <template>
     <div class="modal" v-bind:class="{ 'is-active' : props.isOpen }">
         <div class="modal-background"></div>
-
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <slot name="header">
-                    <p class="modal-card-title">New Weekly Budget!!</p>
-                </slot>
-            </header>
-            <section class="modal-card-body">
-                <label class="label">Set this weeks spending limit</label>
-                <div class="control">
-                    <div v-if="(session.user?.budgets.length ?? 0) > 0">
-                        <input type="number" class="input" v-model="spendingLimit" v-bind:placeholder="session.user!.budgets[0].spendingLimit.toString()">
+        <div class="modal-content">
+            <div class="box">
+                <div class="title">New Budget</div>
+                <div class="field">
+                    <div class="label mt-2">
+                        Goal
                     </div>
-                    <div v-else>
-                        <input type="number" class="input" v-model="spendingLimit" placeholder="0">
-
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="" v-model="goalInput" @keyup="checkGoalInput" :class="{'is-danger': goalInputBad}">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-coins"></i>
+                        </span>
                     </div>
                 </div>
-            </section>
-            <footer class="modal-card-foot">
-                <div class="control field">
-                    <button class="button is-primary" @click="newBudget(spendingLimit); emit('update:isOpen', false);">Save</button>
+                
+                <div class="field is-grouped is-fullwidth mt-3">
+                    <div class="control">
+                        <div class="button is-primary is-inverted is-rounded is-fullwidth" @click="newBudget()">Confirm</div>
+                    </div>
                 </div>
-            </footer>
-            
+            </div>
         </div>
-        
     </div>
 </template>
 

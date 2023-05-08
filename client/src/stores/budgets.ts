@@ -91,11 +91,41 @@ export function addEntry(budget: Budget, value: number, passedCategory: string, 
 }
 
 export function addBudget(user: User, date: number, weekNo: number, limit: number) {  
+    let categoryList: Category[] = []
+
+    if (user.budgets[0] && user.budgets[0].categories.length > 0) {
+        user.budgets[0].categories.forEach(category => {
+            category.entries.forEach(entry => {
+                if (entry.weekly) {
+                    let i = categoryList.findIndex((c) => {
+                        return c.categoryType == category.categoryType
+                    })
+
+                    if (i == -1) {
+                        i = categoryList.push({
+                            categoryType: category.categoryType,
+                            entries: []
+                        }) - 1
+                    }
+
+                    categoryList[i].entries.push({
+                        weekly: entry.weekly,
+                        spent: entry.spent,
+                        description: entry.description,
+                        date: entry.date
+                    })
+                }
+            })
+        })
+    } else {
+        categoryList = defaultCategories.value.map(c => ({ categoryType: c, entries: [] as Entry[]}))
+    }
+
     user.budgets.push({
         date: date,
         weekNo: weekNo,
         spendingLimit: limit,
-        categories:  defaultCategories.value.map(c => ({ categoryType: c, entries: [] as Entry[]})),
+        categories:  categoryList
     });
         
 }
