@@ -46,10 +46,16 @@ async function updateUser(user) {
         {returnNewDocument: true, returnDocument: "after"}
     )
 }
+ 
+async function deleteUser(user) {
+    const db = await collection();
+    return db.deleteOne({username: user.username})
+}
 
 module.exports = {
     collection
     ,getUser
     ,addUser
     ,updateUser
+    ,deleteUser
 }

@@ -33,7 +33,7 @@ function logout() {
                         Statistics
                     </div>
 
-                    <div class="hoverable right-border px-4">
+                    <div class="hoverable right-border px-4"  @click="router.push('/user')">
                         <i class="fa-solid fa-user-tie has-text-black"></i>
                         User
                     </div>

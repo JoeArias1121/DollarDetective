@@ -4,6 +4,7 @@ import BudgetView from '../views/BudgetView.vue'
 import WelcomeView from '../views/WelcomeView.vue'
 import RefreshBudgetView from '../views/RefreshBudgetView.vue'
 import CalendarView from '../views/CalendarView.vue'
+import UserView from '../views/UserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/signIn',
       name: 'signIn',
       component: SignInView
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: UserView
     },
     {
       path: '/calendar',

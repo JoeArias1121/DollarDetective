@@ -19,6 +19,10 @@ export function updateUser(user: User) {
     return api<User>(`users/${user.username}`, {user}, `POST`)
 }
 
+export function deleteUser(user: User) {
+    return api<User>(`users/${user.username}`, {user}, `DELETE`)
+}
+
 export interface User {
     username: string
     password: string
