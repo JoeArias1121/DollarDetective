@@ -1,9 +1,10 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import session from '@/stores/session';
-  import { getServerTime, getWeekNo} from '@/stores/time';
   import router from '@/router';
-  import type { Budget } from '@/stores/budgets';
+  import type { Budget, Category } from '@/stores/budgets';
+  import { categorySum, budgetSum } from '@/stores/stats';
+  import CategoryBox from '@/components/CategoryBox.vue';
 
   const currentBudgetIndex = ref<number>(0);
   const currentBudget = ref<Budget>();
@@ -26,63 +27,43 @@
   <main>
     <div class="container fades-in">
       <div class="box">
-        <strong>Week {{ currentBudget?.weekNo }}</strong>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item title">
+              <strong>Week {{ currentBudget?.weekNo }}</strong>
+            </div>
+          </div>   
+          
+          <div class="level-right">
+            <div class="level-item title">
+              ${{ budgetSum(currentBudget?.categories) }}
+            </div>
+          </div> 
+        </nav>
 
-        <div class="category-container">
-          <div class="box category-display" v-for="category, i in currentBudget?.categories">
-            <p class="title">{{ category.categoryType }}</p>
-            
-            <nav class="level" v-for="entry, j in category.entries">
-              <div class="level-left">
-                <div class="level-item">
-                  {{ entry.description }}
-                </div>
-              </div>
+        <div class="box " v-for="category, i in currentBudget?.categories">
+          <CategoryBox :inputCategory="category"></CategoryBox>
+        </div>
 
-              <div class="level-right">
-                <div class="level-item">
-                  {{ entry.spent }}
-                </div>
-              </div>
-            </nav>
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex + 1)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </div>
           </div>
         </div>
 
-        <nav class="level">
-          <div class="level-left">
-            <div class="level-item">
-              <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex + 1)">
-                <i class="fa-solid fa-chevron-left"></i>
-              </div>
+        <div class="level-right">
+          <div class="level-item">
+            <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex - 1)">
+              <i class="fa-solid fa-chevron-right"></i>
             </div>
           </div>
+        </div>
+      </nav>
 
-          <div class="level-right">
-            <div class="level-item">
-              <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex - 1)">
-                <i class="fa-solid fa-chevron-right"></i>
-              </div>
-            </div>
-          </div>
-        </nav>
+      </div>
     </div>
-  </div>
   </main>
 </template>
-
-<style scoped> 
-  .category-display {
-      width: 300px;
-      min-height: 150px;
-      margin-right: 8px;
-      margin-bottom: 24px;
-  }
-
-  .category-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
