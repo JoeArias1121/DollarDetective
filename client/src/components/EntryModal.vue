@@ -98,8 +98,9 @@
                 weekly: false,
                 spent: Number(valueInput.value)
             })
+            emit('update:isOpen', false)
+
             updateUser(session.user).then(result => {
-                emit('update:isOpen', false)
                 setUser(result);
 
                 router.push('/refreshbudget')
