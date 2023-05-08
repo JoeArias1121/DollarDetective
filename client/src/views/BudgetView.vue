@@ -35,6 +35,8 @@
 <template>
   <main>
     <div class="container fades-in">
+      <h1 class="title" style="text-align:center">Weekly Budgets</h1>
+
       <div class="box">
         <nav class="level">
           <div class="level-left">
@@ -50,28 +52,27 @@
           </div> 
         </nav>
 
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex + 1)">
+                <i class="fa-solid fa-chevron-left"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="level-right">
+            <div class="level-item">
+              <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex - 1)">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+        </nav>
+
         <div class="box " v-for="category, i in currentBudget?.categories">
           <CategoryBox :inputCategory="category" :budgetIndex="currentBudgetIndex"></CategoryBox>
         </div>
-
-      <nav class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex + 1)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-right">
-          <div class="level-item">
-            <div class="button" @click="setCurrentBudgetIndex(currentBudgetIndex - 1)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       </div>
     </div>
   </main>
