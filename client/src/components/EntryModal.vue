@@ -59,7 +59,7 @@
                 description: descInput.value,
                 date: session.user.activeTime,
                 weekly: false,
-                spent: typeof(valueInput.value) == "number" ? valueInput.value : 0
+                spent: Number(valueInput.value)
             })
             updateUser(session.user).then(result => {
                 emit('update:isOpen', false)
