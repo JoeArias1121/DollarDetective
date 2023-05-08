@@ -17,6 +17,7 @@ const session = reactive({
 });
 
 export function setUser(user: User) {
+  user.activeTime = new Date().valueOf()
 
   user.budgets.sort( (b0, b1) => {
     return b1.weekNo - b0.weekNo;

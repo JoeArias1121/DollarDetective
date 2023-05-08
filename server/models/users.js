@@ -10,7 +10,6 @@ async function collection() {
 async function getUser(username) {
     const db = await collection();
     const user = await db.findOne({username: username})
-    user.activeTime = new Date().valueOf
     return user
 }
 
