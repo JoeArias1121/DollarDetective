@@ -61,7 +61,7 @@ if(session.user) {
                 </div>
 
                 <div class="box">
-                    <div class="button is-inverted is-primary is-rounded" @click="isNewEntryOpen = true">New Entry</div>
+                    <div class="button is-inverted is-primary is-rounded is-fullwidth" @click="isNewEntryOpen = true">New Entry</div>
                 </div>
             </div>
             <div class="column">
